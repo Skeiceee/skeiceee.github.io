@@ -45,7 +45,7 @@ const WorkExperiences = () => {
 
         <For each={experiences}>
             {(experience, index) => (
-                <Stack key={index} marginTop={10} shadow="md">
+                <Stack key={index} marginTop={10} shadow="md" rounded="md">	
                     <Card.Root size="lg">
                         <Card.Header>
                             <Heading size="md">{experience.position}</Heading>

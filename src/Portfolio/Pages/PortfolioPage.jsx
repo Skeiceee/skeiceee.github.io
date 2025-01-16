@@ -2,11 +2,16 @@ import { Container, Box, Stack, HStack, Separator, Text } from "@chakra-ui/react
 
 import Profile from "../Components/Profile";
 import WorkExperiences from "../Components/WorkExperiences";
+import { ColorModeButton } from "@/components/ui/color-mode";
 
 const PortfolioPage = () => {
   return (
     <Stack>
-      <Box marginTop={10}>
+
+    <Container key="2xl" maxW="2xl" px="2">
+      <ColorModeButton marginTop={5} />
+    </Container>
+      <Box marginTop={5}>
         <Container key="2xl" maxW="2xl" px="2">
       	
         <Profile/>
@@ -21,6 +26,7 @@ const PortfolioPage = () => {
 
         </Container>
       </Box>
+
     </Stack>
   );
 };
