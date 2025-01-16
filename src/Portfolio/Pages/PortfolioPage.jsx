@@ -8,9 +8,10 @@ const PortfolioPage = () => {
   return (
     <Stack>
 
-    <Container key="2xl" maxW="2xl" px="2">
-      <ColorModeButton marginTop={5} />
-    </Container>
+      <Container key="2xl" maxW="2xl" px="2">
+        <ColorModeButton marginTop={5} />
+      </Container>
+      
       <Box marginTop={5}>
         <Container key="2xl" maxW="2xl" px="2">
       	
