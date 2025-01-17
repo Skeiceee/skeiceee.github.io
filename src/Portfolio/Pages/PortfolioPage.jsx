@@ -1,8 +1,9 @@
 import { Container, Box, Stack, HStack, Separator, Text } from "@chakra-ui/react";
+import { ColorModeButton } from "@/components/ui/color-mode";
 
 import Profile from "../Components/Profile";
 import WorkExperiences from "../Components/WorkExperiences";
-import { ColorModeButton } from "@/components/ui/color-mode";
+import Footer from "../Components/Footer";
 
 const PortfolioPage = () => {
   return (
@@ -24,6 +25,8 @@ const PortfolioPage = () => {
         </HStack>
 
         <WorkExperiences/>
+        
+        <Footer />
 
         </Container>
       </Box>
