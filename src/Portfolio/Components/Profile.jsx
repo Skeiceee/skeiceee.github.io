@@ -2,22 +2,7 @@ import { Badge, Box, Card, Link, Stack } from "@chakra-ui/react"
 import { Avatar } from "@/components/ui/avatar"
 import { FaLinkedin, FaGithub  } from "react-icons/fa6";
 
-
-const skills = [
-    "PHP",
-    "React",
-    "Vue",
-    "Laravel",
-    "Javascript",
-    "MySQL",
-    "PostgreSQL",
-    "GIT",
-    "Python",    
-    "Tailwind",
-    "jQuery",
-    "Bootstrap",
-]
-
+import { skills } from "@/data/skills"
 
 const Profile = () => {
 
