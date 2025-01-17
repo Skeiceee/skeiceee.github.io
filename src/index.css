@@ -3,7 +3,6 @@ html.dark {
     background-image:
         linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    opacity: 0.8; /* Ajusta el valor de opacidad según tus necesidades */
 }
 
 html.light {
@@ -11,5 +10,4 @@ html.light {
     background-image:
         linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-    opacity: 0.8; /* Ajusta el valor de opacidad según tus necesidades */
 }
