@@ -11,8 +11,16 @@
     <meta property="og:url" content="https://skeiceee.github.io/">
     <title>Victor Nuñez - Portafolio</title>
   </head>
-  <body>
+  <body id="body" style="display:none">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <script type="text/javascript">
+      window.onload = function () {
+          setTimeout(function() {
+              document.getElementById("body").style.display = "";        
+          }, 200);
+      }
+    </script>
   </body>
 </html>
