@@ -1,6 +1,6 @@
 export const experiences = [
     {
-        title: "Desarrollador FullStack",
+        position: "Desarrollador FullStack",
         company: "GO Partners",
         date: "oct. 2022 - mar. 2024",
         description: [

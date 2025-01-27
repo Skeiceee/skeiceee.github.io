@@ -1,4 +1,4 @@
-import { Badge, Box, Card, Link, Stack } from "@chakra-ui/react"
+import { Badge, Box, Button, Card, Link, Stack, Tooltip, TooltipContent } from "@chakra-ui/react"
 import { Avatar } from "@/components/ui/avatar"
 import { FaLinkedin, FaGithub  } from "react-icons/fa6";
 
