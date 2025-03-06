@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Avatar } from "@/components/ui/avatar";
 import { FaLinkedin, FaGithub } from "react-icons/fa6";
+import { SiPlatzi } from "react-icons/si";
 
 import { skills } from "@/data/skills";
 
@@ -67,6 +68,9 @@ const Profile = () => {
             </Link>
             <Link href="https://github.com/Skeiceee">
               <FaGithub style={{ fontSize: 30 }} />
+            </Link>
+            <Link href="https://platzi.com/p/victoralejandronunezt/">
+              <SiPlatzi style={{ fontSize: 26 }} />
             </Link>
           </Stack>
         </Card.Footer>
