@@ -1,8 +1,9 @@
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
-import tsconfigPaths from "vite-tsconfig-paths"
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from 'vite';
 
-// https://vitejs.dev/config/
+// `./` keeps the build portable: funciona tanto en skeiceee.github.io
+// como en un repositorio de proyecto (skeiceee.github.io/portafolio).
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
-})
+  base: './',
+  plugins: [svelte()]
+});

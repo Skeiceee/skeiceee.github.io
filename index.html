@@ -1,25 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Desarrollador con 5 años de experiencia en PHP, Laravel, JavaScript, jQuery, Bootstrap, Tailwind, MySQL, PostgreSQL, GIT, y Python. Experiencia en telecomunicaciones, e-commerce y RRHH.">
-    <meta property="og:description" content="Desarrollador con 5 años de experiencia en PHP, Laravel, JavaScript, jQuery, Bootstrap, Tailwind, MySQL, PostgreSQL, GIT, y Python. Experiencia en telecomunicaciones, e-commerce y RRHH.">
-    <meta property="og:image" content="/public/img/1665165872010.jpg">
-    <meta property="og:title" content="Victor Nuñez - Portafolio">
-    <meta property="og:url" content="https://skeiceee.github.io/">
-    <title>Victor Nuñez - Portafolio</title>
-  </head>
-  <body id="body" style="display:none">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <script type="text/javascript">
-      window.onload = function () {
-          setTimeout(function() {
-              document.getElementById("body").style.display = "";        
-          }, 200);
-      }
+    <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>Victor Nuñez — Desarrollador web</title>
+    <meta
+      name="description"
+      content="Desarrollador web en Valparaíso. Backend con PHP, Laravel y Go. Cinco años de experiencia en banca, e-commerce y telecomunicaciones."
+    />
+    <meta name="author" content="Victor Nuñez" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Victor Nuñez — Desarrollador web" />
+    <meta
+      property="og:description"
+      content="Desarrollador web en Valparaíso. Backend con PHP, Laravel y Go. Cinco años de experiencia en banca, e-commerce y telecomunicaciones."
+    />
+    <meta property="og:url" content="https://skeiceee.github.io/" />
+    <meta property="og:image" content="https://skeiceee.github.io/portrait.jpg" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="800" />
+    <meta property="og:image:alt" content="Retrato de Victor Nuñez" />
+    <meta property="og:locale" content="es_CL" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem('theme');
+          document.documentElement.dataset.theme = saved === 'light' ? 'light' : 'dark';
+        } catch {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
     </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript>
+      <p style="padding: 24px; font-family: Georgia, serif">
+        Este portafolio necesita JavaScript para funcionar.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
