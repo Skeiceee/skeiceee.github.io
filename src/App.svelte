@@ -1,6 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
-  import portrait from './assets/portrait.jpg';
   import {
     site,
     intro,
@@ -10,182 +8,75 @@
     featuredProject,
     otherProjects,
     stack,
+    skills,
     sections
   } from './lib/data.js';
-
-  let theme = $state(
-    typeof document !== 'undefined' &&
-      document.documentElement.dataset.theme === 'light'
-      ? 'light'
-      : 'dark'
-  );
-
-  onMount(() => {
-    updateThemeColor(theme);
-  });
-
-  function updateThemeColor(value) {
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', value === 'dark' ? '#000000' : '#ffffff');
-  }
-
-  function toggleTheme() {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    theme = next;
-    document.documentElement.dataset.theme = next;
-    updateThemeColor(next);
-    try {
-      localStorage.setItem('theme', next);
-    } catch {
-      /* El tema sigue funcionando aunque el navegador bloquee el almacenamiento. */
-    }
-  }
 
   const year = new Date().getFullYear();
 </script>
 
-<div class="shell" id="top">
-  <a class="skip" href="#contenido">Saltar al contenido</a>
+<a class="skip" href="#contenido">Saltar al contenido</a>
 
+<div class="wrap" id="top">
   <header class="masthead">
-    <div class="masthead-main">
-      <a class="wordmark" href="#top" aria-label="Victor Nuñez, volver al inicio">
-        Victor Nuñez<span aria-hidden="true">.</span>
-      </a>
+    <p class="session" aria-hidden="true">
+      <span class="prompt">victor@valparaiso</span><span class="sep">:</span><span class="path">~</span><span class="sep">$</span>
+      <span class="command">whoami</span>
+      <span class="cursor"></span>
+    </p>
 
-      <div class="masthead-tools">
-        <span class="place">{site.location}</span>
-        <button
-          class="theme-toggle"
-          class:is-light={theme === 'light'}
-          type="button"
-          onclick={toggleTheme}
-          aria-label={theme === 'dark' ? 'Cambiar al modo claro' : 'Cambiar al modo oscuro'}
-          title={theme === 'dark' ? 'Cambiar al modo claro' : 'Cambiar al modo oscuro'}
-        >
-          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-            <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" />
-            <path d="M8 1.5a6.5 6.5 0 0 1 0 13Z" fill="currentColor" />
-          </svg>
-          <span>{theme === 'dark' ? 'claro' : 'oscuro'}</span>
-        </button>
-      </div>
-    </div>
+    <h1>{site.name}</h1>
 
-    <nav class="index" aria-label="Índice de la página">
+    <p class="tagline">{intro.title} <em>{intro.accent}</em></p>
+    <p class="lede">{intro.lede}</p>
+
+    <p class="status">
+      <span class="dot" aria-hidden="true"></span>{intro.status}
+    </p>
+
+    <nav class="nav" aria-label="Secciones del sitio">
       {#each sections as section}
-        <a href={`#${section.id}`}>
-          <span aria-hidden="true">{section.number}</span>{section.label}
-        </a>
+        <a href={`#${section.id}`}><span aria-hidden="true">./</span>{section.id}</a>
       {/each}
     </nav>
   </header>
 
   <main id="contenido">
-    <section class="intro" aria-labelledby="intro-title">
-      <p class="kicker">
-        <span>Portafolio</span>
-        <span>{year}</span>
-      </p>
-
-      <h1 id="intro-title">
-        {intro.title}<br />
-        <em>{intro.accent}</em>
-      </h1>
-
-      <p class="lede">{intro.lede}</p>
-
-      <p class="status">
-        <span class="status-mark" aria-hidden="true"></span>
-        {intro.status}
-      </p>
-    </section>
-
-    <section class="section" id="experiencia" aria-labelledby="experiencia-title">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <h2 id="experiencia-title">Experiencia</h2>
-        <span class="section-note">2019—2024</span>
-      </div>
-
-      <ol class="jobs">
-        {#each experience as job}
-          <li class="job">
-            <span class="job-period">{job.period}</span>
-            <div class="job-body">
-              <h3 class="job-role">{job.role}</h3>
-              <p class="job-company">{job.company}</p>
-              <p class="job-summary">{job.summary}</p>
-            </div>
-          </li>
-        {/each}
-      </ol>
-
-      <p class="education">
-        <span>Formación</span>
-        <span>{education.title} · {education.school}</span>
-      </p>
-    </section>
-
     <section class="section" id="proyectos" aria-labelledby="proyectos-title">
       <div class="section-head">
-        <span class="section-num">02</span>
-        <h2 id="proyectos-title">Proyectos</h2>
-        <span class="section-note">Selección</span>
+        <span class="section-num" aria-hidden="true">01</span>
+        <h2 id="proyectos-title">
+          <span class="chev" aria-hidden="true">&gt;</span>Proyectos
+        </h2>
+        <span class="section-path" aria-hidden="true">~/proyectos</span>
       </div>
 
-      <article class="feature">
-        <div class="feature-copy">
-          <p class="feature-label">Proyecto destacado</p>
-          <h3 class="feature-name">{featuredProject.name}</h3>
-          <p class="feature-tagline">{featuredProject.tagline}</p>
-          <p class="feature-summary">{featuredProject.summary}</p>
-          <p class="feature-meta">
-            {featuredProject.stack.join(' · ')} · {featuredProject.license} · {featuredProject.year}
-          </p>
+      <article class="featured">
+        <p class="featured-label">
+          <span class="marker" aria-hidden="true">*</span>destacado
+        </p>
+        <h3 class="featured-name">{featuredProject.name}</h3>
+        <p class="featured-tagline">{featuredProject.tagline}</p>
+        <p class="featured-summary">{featuredProject.summary}</p>
+        <p class="meta">
+          {featuredProject.stack.join(' · ')} · {featuredProject.license} · {featuredProject.year}
+        </p>
 
-          <div class="feature-links">
-            {#each featuredProject.links as link}
-              <a href={link.href} target="_blank" rel="noreferrer noopener">
-                {link.label}<span aria-hidden="true">↗</span>
-              </a>
-            {/each}
-          </div>
+        <div class="link-row">
+          {#each featuredProject.links as link}
+            <a href={link.href} target="_blank" rel="noreferrer noopener">
+              {link.label}<span aria-hidden="true"> ↗</span>
+            </a>
+          {/each}
         </div>
-
-        <figure class="feature-figure">
-          <div class="reader" aria-hidden="true">
-            <div class="reader-bar">
-              <span class="reader-brand">Gutter</span>
-              <span>024 / 180</span>
-            </div>
-            <div class="reader-page">
-              <span class="panel panel-1"></span>
-              <span class="panel panel-2"></span>
-              <span class="panel panel-3"></span>
-              <span class="panel panel-4"></span>
-              <span class="panel panel-5"></span>
-            </div>
-            <div class="reader-bar reader-footer">
-              <span>−</span>
-              <span>65%</span>
-              <span>+</span>
-              <span class="reader-spacer"></span>
-              <span>← →</span>
-            </div>
-          </div>
-          <figcaption>Fig. 01 — Gutter</figcaption>
-        </figure>
       </article>
 
       <ul class="project-list" aria-label="Otros proyectos">
         {#each otherProjects as project}
           <li>
-            <a class="project-row" href={project.href} target="_blank" rel="noreferrer noopener">
-              <span class="project-info">
-                <span class="project-name">{project.name}</span>
-                <span class="project-summary">{project.summary}</span>
-              </span>
+            <a href={project.href} target="_blank" rel="noreferrer noopener">
+              <span class="project-name">{project.name}</span>
+              <span class="project-summary">{project.summary}</span>
               <span class="project-arrow" aria-hidden="true">↗</span>
             </a>
           </li>
@@ -193,11 +84,42 @@
       </ul>
     </section>
 
-    <section class="section" id="stack" aria-labelledby="stack-title">
+    <section class="section" id="experiencia" aria-labelledby="experiencia-title">
       <div class="section-head">
-        <span class="section-num">03</span>
-        <h2 id="stack-title">Herramientas</h2>
-        <span class="section-note">Uso diario</span>
+        <span class="section-num" aria-hidden="true">02</span>
+        <h2 id="experiencia-title">
+          <span class="chev" aria-hidden="true">&gt;</span>Experiencia
+        </h2>
+        <span class="section-path" aria-hidden="true">~/experiencia</span>
+      </div>
+
+      <ol class="timeline">
+        {#each experience as job}
+          <li>
+            <p class="period">{job.period}</p>
+            <div>
+              <h3 class="role">
+                {job.role} <span class="company">@ {job.company}</span>
+              </h3>
+              <p class="summary">{job.summary}</p>
+            </div>
+          </li>
+        {/each}
+      </ol>
+
+      <p class="education">
+        <span class="education-label">formación</span>
+        {education.title} · {education.school}
+      </p>
+    </section>
+
+    <section class="section" id="herramientas" aria-labelledby="herramientas-title">
+      <div class="section-head">
+        <span class="section-num" aria-hidden="true">03</span>
+        <h2 id="herramientas-title">
+          <span class="chev" aria-hidden="true">&gt;</span>Herramientas
+        </h2>
+        <span class="section-path" aria-hidden="true">~/herramientas</span>
       </div>
 
       <dl class="stack">
@@ -208,551 +130,312 @@
           </div>
         {/each}
       </dl>
+
+      <h3 class="skills-title">Habilidades</h3>
+      <ul class="skills">
+        {#each skills as skill}
+          <li>{skill}</li>
+        {/each}
+      </ul>
     </section>
 
     <section class="section" id="contacto" aria-labelledby="contacto-title">
       <div class="section-head">
-        <span class="section-num">04</span>
-        <h2 id="contacto-title">Contacto</h2>
-        <span class="section-note">Sin formularios</span>
+        <span class="section-num" aria-hidden="true">04</span>
+        <h2 id="contacto-title">
+          <span class="chev" aria-hidden="true">&gt;</span>Contacto
+        </h2>
+        <span class="section-path" aria-hidden="true">~/contacto</span>
       </div>
 
-      <div class="contact-grid">
+      <div class="contact">
         <div>
           <h3 class="contact-lead">{contact.lead}</h3>
           <p class="contact-text">{contact.text}</p>
-
-          <div class="contact-links">
-            <a href={site.linkedin} target="_blank" rel="noreferrer noopener">
-              LinkedIn<span aria-hidden="true">↗</span>
-            </a>
-            <a href={site.github} target="_blank" rel="noreferrer noopener">
-              GitHub<span aria-hidden="true">↗</span>
-            </a>
-            {#if site.email}
-              <a href={`mailto:${site.email}`}>Correo<span aria-hidden="true">↗</span></a>
-            {/if}
-          </div>
         </div>
 
-        <figure class="portrait">
-          <span class="portrait-frame">
-            <img
-              src={portrait}
-              alt="Victor Nuñez"
-              width="800"
-              height="800"
-              decoding="async"
-            />
-          </span>
-          <figcaption>Victor, Valparaíso.</figcaption>
-        </figure>
+        <ul class="contact-links">
+          <li>
+            <a href={site.linkedin} target="_blank" rel="noreferrer noopener">
+              linkedin<span aria-hidden="true"> ↗</span>
+            </a>
+          </li>
+          <li>
+            <a href={site.github} target="_blank" rel="noreferrer noopener">
+              github<span aria-hidden="true"> ↗</span>
+            </a>
+          </li>
+          {#if site.email}
+            <li>
+              <a href={`mailto:${site.email}`}>correo<span aria-hidden="true"> ↗</span></a>
+            </li>
+          {/if}
+        </ul>
       </div>
+
+      <p class="contact-meta">{site.location} · 33°02′S 71°37′O</p>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="footer-top">
-      <p class="footer-copy">
-        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <rect x="3" y="4" width="10" height="6" fill="currentColor"></rect>
-          <rect x="16" y="4" width="13" height="6" fill="currentColor"></rect>
-          <rect x="3" y="13" width="7.5" height="7" fill="currentColor"></rect>
-          <rect x="13.5" y="13" width="15.5" height="7" fill="var(--accent)"></rect>
-          <rect x="3" y="23" width="26" height="6" fill="currentColor"></rect>
-        </svg>
-        © {year} {site.name}
-      </p>
-      <a href="#top">Volver arriba <span aria-hidden="true">↑</span></a>
-    </div>
-
-    <div class="footer-bottom">
-      <p>Hecho con Svelte. Newsreader e IBM Plex Mono.<br />Sin cookies ni analytics.</p>
-      <p class="footer-place">{site.location}<br />33°02′S 71°37′O</p>
-    </div>
+    <p class="exit"><span class="prompt" aria-hidden="true">$</span> exit</p>
+    <p>© {year} {site.name}</p>
+    <p>Hecho con Svelte · sin cookies ni analytics</p>
+    <a href="#top">volver al inicio <span aria-hidden="true">↑</span></a>
   </footer>
 </div>
 
 <style>
-  .shell {
-    position: relative;
-    width: min(calc(100% - 40px), 680px);
+  .wrap {
+    width: min(calc(100% - 48px), 800px);
     margin: 0 auto;
-    padding: 44px 0 40px;
+    padding: 64px 0 48px;
   }
 
   .skip {
     position: fixed;
-    top: 12px;
+    top: 10px;
     left: 50%;
-    z-index: 50;
+    z-index: 20;
     padding: 8px 12px;
-    transform: translate(-50%, -200%);
-    background: var(--fg);
-    color: var(--bg);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
+    border: 1px solid var(--accent);
+    transform: translate(-50%, -220%);
+    background: var(--bg);
+    color: var(--accent);
+    font-size: 12px;
     text-decoration: none;
-    text-transform: uppercase;
-    opacity: 0;
-    pointer-events: none;
   }
 
   .skip:focus {
     transform: translate(-50%, 0);
-    opacity: 1;
-    pointer-events: auto;
   }
 
-  /* Masthead ---------------------------------------------------------- */
+  /* Cabecera --------------------------------------------------------- */
 
   .masthead {
+    padding-bottom: 42px;
     border-bottom: 1px solid var(--line-strong);
   }
 
-  .masthead-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    padding-bottom: 18px;
-  }
-
-  .wordmark {
-    font-size: 20px;
-    line-height: 1;
-    letter-spacing: -0.015em;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .wordmark span {
-    color: var(--faint);
-  }
-
-  .masthead-tools {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .place {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 8px;
-    border: 1px solid var(--line-strong);
-    background: transparent;
-    color: var(--fg);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 0;
-    transition:
-      background-color 160ms ease,
-      border-color 160ms ease,
-      color 160ms ease;
-  }
-
-  .theme-toggle:hover {
-    border-color: var(--fg);
-    background: var(--fg);
-    color: var(--bg);
-  }
-
-  .theme-toggle svg {
-    width: 11px;
-    height: 11px;
-    transition: transform 240ms ease;
-  }
-
-  .theme-toggle.is-light svg {
-    transform: rotate(180deg);
-  }
-
-  .index {
+  .session {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 20px;
-    padding: 12px 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .index a {
-    display: inline-flex;
-    gap: 6px;
+    align-items: center;
     color: var(--muted);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 160ms ease;
+    font-size: 12px;
+    line-height: 1.5;
   }
 
-  .index a span {
+  .prompt {
+    color: var(--accent);
+  }
+
+  .sep {
     color: var(--faint);
   }
 
-  .index a:hover {
+  .path {
+    color: var(--muted);
+  }
+
+  .command {
+    margin-left: 8px;
     color: var(--fg);
   }
 
-  /* Intro ------------------------------------------------------------- */
-
-  .intro {
-    padding: 80px 0 74px;
+  .cursor {
+    width: 8px;
+    height: 14px;
+    margin-left: 6px;
+    background: var(--accent);
+    animation: blink 1.1s steps(1, end) infinite;
   }
 
-  .kicker {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--line);
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
   }
 
   h1 {
-    margin-top: 32px;
-    font-size: clamp(2.7rem, 8.5vw, 4.3rem);
-    font-weight: 400;
-    line-height: 0.98;
-    letter-spacing: -0.035em;
+    margin-top: 22px;
+    font-size: clamp(2.6rem, 8vw, 4.1rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.96;
   }
 
-  h1 em {
-    font-weight: 300;
+  .tagline {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    line-height: 1.4;
+  }
+
+  .tagline em {
+    color: var(--accent);
+    font-style: normal;
   }
 
   .lede {
-    max-width: 53ch;
-    margin-top: 32px;
-    font-size: 18px;
-    line-height: 1.62;
+    max-width: 62ch;
+    margin-top: 24px;
+    color: var(--fg);
+    font-size: 15px;
+    line-height: 1.8;
+    text-wrap: pretty;
   }
 
   .status {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 28px;
+    gap: 9px;
+    margin-top: 24px;
     color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 12px;
   }
 
-  .status-mark {
+  .dot {
     width: 6px;
     height: 6px;
+    border-radius: 50%;
     background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(126, 231, 135, 0.12);
   }
 
-  /* Sections ---------------------------------------------------------- */
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  .nav a {
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .nav a:hover {
+    color: var(--accent);
+  }
+
+  /* Secciones -------------------------------------------------------- */
 
   .section {
-    margin-top: 88px;
+    padding-top: 84px;
   }
 
   .section-head {
     display: grid;
-    grid-template-columns: 34px minmax(0, 1fr) auto;
-    gap: 10px;
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    gap: 12px;
     align-items: baseline;
-    padding-top: 30px;
-    border-top: 1px solid var(--line-strong);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line-strong);
   }
 
   .section-num {
     color: var(--faint);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.06em;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
   }
 
   .section-head h2 {
-    font-size: 23px;
-    font-weight: 400;
-    letter-spacing: -0.015em;
-    line-height: 1;
-  }
-
-  .section-note {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  /* Experience -------------------------------------------------------- */
-
-  .jobs {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .job {
-    display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
-    gap: 26px;
-    padding: 28px 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .job:first-child {
-    padding-top: 32px;
-  }
-
-  .job-period {
-    padding-top: 6px;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .job-role {
     font-size: 20px;
-    font-weight: 450;
+    font-weight: 500;
     letter-spacing: -0.01em;
     line-height: 1.2;
   }
 
-  .job-company {
-    margin-top: 3px;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .chev {
+    margin-right: 10px;
+    color: var(--accent);
+    font-weight: 400;
   }
 
-  .job-summary {
-    max-width: 44ch;
-    margin-top: 10px;
-    color: var(--muted);
-    font-size: 15.5px;
-    line-height: 1.6;
-  }
-
-  .education {
-    display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
-    gap: 26px;
-    padding-top: 20px;
-    color: var(--muted);
-    font-size: 14.5px;
-    line-height: 1.6;
-  }
-
-  .education span:first-child {
+  .section-path {
     color: var(--faint);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 11px;
+    white-space: nowrap;
   }
 
-  /* Projects ---------------------------------------------------------- */
+  /* Proyectos -------------------------------------------------------- */
 
-  .feature {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 176px;
-    gap: 38px;
-    align-items: start;
-    padding: 36px 0 40px;
+  .featured {
+    padding: 28px 0 32px;
     border-bottom: 1px solid var(--line);
   }
 
-  .feature-label {
+  .featured-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
-  .feature-name {
-    margin-top: 10px;
-    font-size: 32px;
-    font-weight: 400;
-    letter-spacing: -0.025em;
+  .marker {
+    color: var(--accent);
+  }
+
+  .featured-name {
+    margin-top: 14px;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
     line-height: 1;
   }
 
-  .feature-tagline {
+  .featured-tagline {
     margin-top: 8px;
     color: var(--muted);
-    font-size: 15px;
+    font-size: 14px;
     font-style: italic;
   }
 
-  .feature-summary {
-    max-width: 44ch;
-    margin-top: 16px;
-    font-size: 16px;
-    line-height: 1.62;
+  .featured-summary {
+    max-width: 60ch;
+    margin-top: 18px;
+    color: var(--fg);
+    font-size: 15px;
+    line-height: 1.75;
+    text-wrap: pretty;
   }
 
-  .feature-meta {
+  .meta {
     margin-top: 16px;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.05em;
-    line-height: 1.6;
-    text-transform: uppercase;
+    color: var(--faint);
+    font-size: 11px;
+    letter-spacing: 0.02em;
   }
 
-  .feature-links {
+  .link-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 18px;
+    gap: 6px 18px;
     margin-top: 22px;
   }
 
-  .feature-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding-bottom: 3px;
-    border-bottom: 1px solid var(--line-strong);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
+  .link-row a {
+    color: var(--accent);
+    font-size: 12px;
     text-decoration: none;
-    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
     transition: border-color 160ms ease;
   }
 
-  .feature-links a span {
-    transition: transform 160ms ease;
+  .link-row a:hover {
+    border-color: var(--accent);
   }
 
-  .feature-links a:hover {
-    border-color: var(--fg);
-  }
-
-  .feature-links a:hover span {
-    transform: translate(2px, -2px);
-  }
-
-  .feature-figure {
-    margin: 0;
-  }
-
-  .reader {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    aspect-ratio: 4 / 5;
-    padding: 7px;
-    border: 1px solid #26394d;
-    background: #0b1622;
-    color: #c9d6e2;
-    font-family: var(--mono);
-    font-size: 7.5px;
-    letter-spacing: 0.06em;
-    line-height: 1;
-    transform: rotate(1.25deg);
-    transition: transform 240ms ease;
-  }
-
-  .feature-figure:hover .reader {
-    transform: rotate(0);
-  }
-
-  .reader-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    min-height: 10px;
-  }
-
-  .reader-brand {
-    color: #fff;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .reader-page {
-    display: grid;
-    flex: 1;
-    grid-template-columns: 1.2fr 0.8fr 0.7fr;
-    grid-template-rows: 1fr 0.8fr 1.1fr;
-    gap: 5px;
-  }
-
-  .panel {
-    background-color: #f2efe6;
-    background-image: repeating-linear-gradient(
-      -45deg,
-      transparent 0 4px,
-      rgba(11, 22, 34, 0.07) 4px 5px
-    );
-  }
-
-  .panel-1 {
-    grid-column: 1 / span 2;
-  }
-
-  .panel-2 {
-    grid-column: 3;
-  }
-
-  .panel-3 {
-    grid-column: 1;
-    grid-row: 2 / span 2;
-  }
-
-  .panel-4 {
-    grid-column: 2 / span 2;
-    grid-row: 2;
-    background-color: var(--accent);
-    background-image: none;
-  }
-
-  .panel-5 {
-    grid-column: 2 / span 2;
-    grid-row: 3;
-  }
-
-  .reader-spacer {
-    flex: 1;
-  }
-
-  .feature-figure figcaption {
-    margin-top: 10px;
+  .link-row span {
     color: var(--muted);
-    font-family: var(--mono);
-    font-size: 8px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
 
   .project-list {
@@ -765,329 +448,306 @@
     border-bottom: 1px solid var(--line);
   }
 
-  .project-row {
+  .project-list a {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 18px;
+    grid-template-columns: 190px minmax(0, 1fr) 16px;
+    gap: 6px 20px;
     align-items: start;
-    padding: 22px 0;
+    padding: 18px 0;
     text-decoration: none;
   }
 
   .project-name {
-    font-size: 19px;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
+    color: var(--fg);
+    font-size: 14px;
+    line-height: 1.5;
+    transition: color 160ms ease;
   }
 
   .project-summary {
-    display: block;
-    margin-top: 5px;
     color: var(--muted);
-    font-size: 14.5px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .project-arrow {
+    justify-self: end;
     color: var(--faint);
-    font-family: var(--mono);
-    font-size: 14px;
+    font-size: 12px;
     transition:
       color 160ms ease,
       transform 160ms ease;
   }
 
-  .project-row:hover .project-name {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
+  .project-list a:hover .project-name,
+  .project-list a:hover .project-arrow {
+    color: var(--accent);
   }
 
-  .project-row:hover .project-arrow {
-    color: var(--fg);
+  .project-list a:hover .project-arrow {
     transform: translate(2px, -2px);
   }
 
-  /* Stack ------------------------------------------------------------- */
+  /* Experiencia ------------------------------------------------------ */
+
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .period {
+    padding-top: 2px;
+    color: var(--muted);
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  .role {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .company {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .summary {
+    max-width: 58ch;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .education {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .education-label {
+    margin-right: 8px;
+    color: var(--faint);
+  }
+
+  /* Herramientas ----------------------------------------------------- */
 
   .stack {
-    margin: 24px 0 0;
+    margin: 8px 0 0;
   }
 
   .stack-row {
     display: grid;
-    grid-template-columns: 132px minmax(0, 1fr);
+    grid-template-columns: 130px minmax(0, 1fr);
     gap: 20px;
-    padding: 16px 0;
+    padding: 12px 0;
     border-bottom: 1px solid var(--line);
   }
 
   .stack-row dt {
-    padding-top: 3px;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.08em;
+    padding-top: 2px;
+    color: var(--faint);
+    font-size: 11px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   .stack-row dd {
-    font-size: 16px;
-    line-height: 1.5;
+    color: var(--fg);
+    font-size: 14px;
+    line-height: 1.6;
   }
 
-  /* Contact ----------------------------------------------------------- */
+  .skills-title {
+    margin-top: 36px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
 
-  .contact-grid {
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .skills li::after {
+    content: '·';
+    margin: 0 9px;
+    color: var(--line-strong);
+  }
+
+  .skills li:last-child::after {
+    content: '';
+    margin: 0;
+  }
+
+  /* Contacto --------------------------------------------------------- */
+
+  .contact {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 104px;
-    gap: 36px;
-    align-items: start;
-    padding-top: 34px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 32px;
+    align-items: end;
+    padding: 28px 0 24px;
+    border-bottom: 1px solid var(--line);
   }
 
   .contact-lead {
-    max-width: 16ch;
-    font-size: clamp(1.55rem, 4.5vw, 2.15rem);
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.12;
+    max-width: 24ch;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    text-wrap: pretty;
   }
 
   .contact-text {
-    max-width: 40ch;
-    margin-top: 16px;
+    max-width: 48ch;
+    margin-top: 14px;
     color: var(--muted);
-    font-size: 16px;
-    line-height: 1.62;
+    font-size: 14px;
+    line-height: 1.7;
   }
 
   .contact-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 22px;
-    margin-top: 28px;
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .contact-links a {
     display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding-bottom: 3px;
-    border-bottom: 1px solid var(--line-strong);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-size: 12px;
     text-decoration: none;
-    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
     transition: border-color 160ms ease;
   }
 
   .contact-links a:hover {
-    border-color: var(--fg);
+    border-color: var(--accent);
   }
 
-  .portrait {
-    margin: 6px 0 0;
-  }
-
-  .portrait-frame {
-    display: block;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    border: 1px solid var(--line-strong);
-  }
-
-  .portrait img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 22%;
-    filter: grayscale(1) contrast(1.03);
-  }
-
-  .portrait figcaption {
-    margin-top: 8px;
+  .contact-links span {
     color: var(--muted);
-    font-family: var(--mono);
-    font-size: 8px;
-    letter-spacing: 0.06em;
-    line-height: 1.5;
-    text-transform: uppercase;
   }
 
-  /* Footer ------------------------------------------------------------ */
+  .contact-meta {
+    margin-top: 14px;
+    color: var(--faint);
+    font-size: 11px;
+  }
+
+  /* Pie -------------------------------------------------------------- */
 
   .footer {
-    margin-top: 92px;
-    padding-top: 22px;
+    display: grid;
+    gap: 4px;
+    margin-top: 90px;
+    padding-top: 18px;
     border-top: 1px solid var(--line-strong);
+    color: var(--faint);
+    font-size: 11px;
+    line-height: 1.7;
   }
 
-  .footer-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+  .exit {
     color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
+    font-size: 12px;
   }
 
-  .footer-copy {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  .exit .prompt {
+    margin-right: 6px;
   }
 
-  .mark {
-    width: 14px;
-    height: 14px;
-  }
-
-  .footer-top a {
+  .footer a {
+    justify-self: start;
+    color: var(--muted);
     text-decoration: none;
     transition: color 160ms ease;
   }
 
-  .footer-top a:hover {
-    color: var(--fg);
+  .footer a:hover {
+    color: var(--accent);
   }
 
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-    margin-top: 18px;
-    color: var(--faint);
-    font-family: var(--mono);
-    font-size: 8.5px;
-    letter-spacing: 0.03em;
-    line-height: 1.7;
-  }
+  /* Responsive ------------------------------------------------------- */
 
-  .footer-place {
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  /* Wide screens: the page keeps a visible gutter --------------------- */
-
-  @media (min-width: 900px) {
-    .shell::before,
-    .shell::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: var(--line);
-      pointer-events: none;
+  @media (max-width: 640px) {
+    .wrap {
+      width: calc(100% - 32px);
+      padding: 40px 0 36px;
     }
 
-    .shell::before {
-      left: calc(50% - 376px);
-    }
-
-    .shell::after {
-      right: calc(50% - 376px);
-    }
-  }
-
-  /* Small screens ----------------------------------------------------- */
-
-  @media (max-width: 720px) {
-    .shell {
-      padding-top: 28px;
-    }
-
-    .place {
-      display: none;
-    }
-
-    .intro {
-      padding: 56px 0 56px;
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 12vw, 3.6rem);
-    }
-
-    .lede {
-      font-size: 17px;
+    .masthead {
+      padding-bottom: 32px;
     }
 
     .section {
-      margin-top: 64px;
+      padding-top: 64px;
     }
 
     .section-head {
-      padding-top: 24px;
-    }
-
-    .job {
-      grid-template-columns: 1fr;
+      grid-template-columns: 22px minmax(0, 1fr);
       gap: 8px;
-      padding: 24px 0;
     }
 
-    .job-period {
+    .section-path {
+      display: none;
+    }
+
+    .featured-name {
+      font-size: 2.1rem;
+    }
+
+    .project-list a {
+      grid-template-columns: minmax(0, 1fr) 16px;
+      gap: 2px 12px;
+    }
+
+    .project-name {
+      grid-column: 1;
+    }
+
+    .project-summary {
+      grid-column: 1 / -1;
+    }
+
+    .project-arrow {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .timeline li {
+      grid-template-columns: 1fr;
+      gap: 5px;
+      padding: 18px 0;
+    }
+
+    .period {
       padding-top: 0;
-    }
-
-    .education {
-      grid-template-columns: 1fr;
-      gap: 4px;
-    }
-
-    .feature {
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding: 30px 0 34px;
-    }
-
-    .feature-figure {
-      max-width: 190px;
-    }
-
-    .stack-row {
-      grid-template-columns: 110px minmax(0, 1fr);
-      gap: 14px;
-    }
-
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-
-    .portrait {
-      width: 96px;
-    }
-
-    .footer-bottom {
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-place {
-      text-align: left;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .index {
-      gap: 6px 8px;
-    }
-
-    .index a {
-      gap: 4px;
-      font-size: 8.5px;
-    }
-
-    .section-note {
-      font-size: 8.5px;
     }
 
     .stack-row {
@@ -1097,6 +757,26 @@
 
     .stack-row dt {
       padding-top: 0;
+    }
+
+    .contact {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .nav {
+      gap: 4px 14px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+    }
+
+    .skills li::after {
+      margin: 0 7px;
     }
   }
 </style>

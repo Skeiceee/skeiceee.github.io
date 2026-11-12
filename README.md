@@ -24,7 +24,8 @@ Casi todo el texto vive en `src/lib/data.js`:
 - `education`: formación.
 - `featuredProject`: Gutter.
 - `otherProjects`: proyectos secundarios.
-- `stack`: herramientas.
+- `stack`: herramientas agrupadas.
+- `skills`: habilidades en lista, sin porcentajes.
 - `sections`: índice de navegación.
 
 El correo está vacío (`email: ''`). Si lo completas, aparece automáticamente
@@ -37,12 +38,24 @@ actualiza esas URLs.
 ## Editar el diseño
 
 - Colores y tipografía base: `src/app.css`.
-- Layout y componentes: `src/App.svelte`.
-- Retrato: `src/assets/portrait.jpg` (y `public/portrait.jpg` para Open Graph).
+- Layout y contenido: `src/App.svelte`.
 - Favicon: `public/favicon.svg`.
 
-El tema por defecto es oscuro; la elección se guarda en `localStorage` y se
-aplica antes del primer render para evitar el destello blanco.
+### Estilo «estilo-terminal»
+
+La rama `estilo-terminal` convierte el portafolio en una sesión de terminal
+minimalista:
+
+- Fondo casi negro, tipografía IBM Plex Mono y un único acento verde.
+- Cabecera con prompt `victor@valparaiso:~$`, cursor parpadeante y navegación
+  tipo `./proyectos`.
+- El orden prioriza proyectos, luego experiencia, herramientas y contacto.
+- Gutter aparece primero como proyecto destacado y el resto en una lista
+  compacta.
+- Las habilidades se muestran como una lista de nombres, sin porcentajes ni
+  barras.
+- Página solo texto: sin retrato, sin imágenes decorativas y sin selector de
+  tema claro/oscuro.
 
 ## Build
 

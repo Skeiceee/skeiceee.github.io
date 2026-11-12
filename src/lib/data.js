@@ -83,6 +83,25 @@ export const otherProjects = [
   }
 ];
 
+export const skills = [
+  'PHP',
+  'Laravel',
+  'Go',
+  'Python',
+  'JavaScript',
+  'Svelte',
+  'Vue',
+  'React',
+  'Tailwind',
+  'Bootstrap',
+  'CSS',
+  'MySQL',
+  'PostgreSQL',
+  'Git',
+  'Linux',
+  'VS Code'
+];
+
 export const stack = [
   { label: 'Backend', value: 'PHP · Laravel · Go · Python' },
   {
@@ -95,8 +114,8 @@ export const stack = [
 ];
 
 export const sections = [
-  { id: 'experiencia', number: '01', label: 'Experiencia' },
-  { id: 'proyectos', number: '02', label: 'Proyectos' },
-  { id: 'stack', number: '03', label: 'Herramientas' },
+  { id: 'proyectos', number: '01', label: 'Proyectos' },
+  { id: 'experiencia', number: '02', label: 'Experiencia' },
+  { id: 'herramientas', number: '03', label: 'Herramientas' },
   { id: 'contacto', number: '04', label: 'Contacto' }
 ];
