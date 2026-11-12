@@ -44,7 +44,6 @@
   <main id="contenido">
     <section class="section" id="proyectos" aria-labelledby="proyectos-title">
       <div class="section-head">
-        <span class="section-num" aria-hidden="true">01</span>
         <h2 id="proyectos-title">
           <span class="chev" aria-hidden="true">&gt;</span>Proyectos
         </h2>
@@ -86,7 +85,6 @@
 
     <section class="section" id="experiencia" aria-labelledby="experiencia-title">
       <div class="section-head">
-        <span class="section-num" aria-hidden="true">02</span>
         <h2 id="experiencia-title">
           <span class="chev" aria-hidden="true">&gt;</span>Experiencia
         </h2>
@@ -115,7 +113,6 @@
 
     <section class="section" id="herramientas" aria-labelledby="herramientas-title">
       <div class="section-head">
-        <span class="section-num" aria-hidden="true">03</span>
         <h2 id="herramientas-title">
           <span class="chev" aria-hidden="true">&gt;</span>Herramientas
         </h2>
@@ -141,7 +138,6 @@
 
     <section class="section" id="contacto" aria-labelledby="contacto-title">
       <div class="section-head">
-        <span class="section-num" aria-hidden="true">04</span>
         <h2 id="contacto-title">
           <span class="chev" aria-hidden="true">&gt;</span>Contacto
         </h2>
@@ -331,17 +327,11 @@
 
   .section-head {
     display: grid;
-    grid-template-columns: 26px minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 12px;
     align-items: baseline;
     padding-bottom: 14px;
     border-bottom: 1px solid var(--line-strong);
-  }
-
-  .section-num {
-    color: var(--faint);
-    font-size: 11px;
-    font-variant-numeric: tabular-nums;
   }
 
   .section-head h2 {
@@ -710,7 +700,7 @@
     }
 
     .section-head {
-      grid-template-columns: 22px minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 8px;
     }
 
